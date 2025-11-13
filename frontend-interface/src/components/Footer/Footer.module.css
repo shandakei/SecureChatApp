@@ -1,0 +1,12 @@
+footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    padding: 40px 20px;
+}
+
+
+#copywrite {
+    grid-column: span 3; 
+    text-align: center;
+    margin-top: 10px;
+}

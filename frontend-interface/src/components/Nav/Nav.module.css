@@ -1,0 +1,66 @@
+  a:active {
+    text-decoration: underline;
+  }
+  
+.not_verified {
+  text-align: center;
+  color: white;
+  background-color: red;
+}
+
+.Dashboard img {
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.Dashboard {
+  color: black;
+  font-size: 1.15rem;
+  margin-right: 50px;
+}
+
+.dropDown {
+  display: none; 
+  position: absolute; 
+  background-color: white; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  padding: 10px 0;
+  z-index: 1000; 
+  min-width: 150px; 
+  border-radius: 4px; 
+  right: 0.9rem;
+  top: 3.6rem;
+}
+
+.dropDown ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none; 
+  margin: 0;
+  padding: 0;
+}
+
+.dropDown ul li {
+  padding: 10px 15px; 
+  cursor: pointer;
+  transition: background-color 0.2s ease; 
+}
+
+.dropDown ul li a {
+  color: black;
+}
+
+.dropDown ul li:hover {
+  background-color: #f0f0f0; 
+}
+
+.Dashboard:hover .dropDown {
+  display: block;
+}
+
+.navWrapper {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+}
+
