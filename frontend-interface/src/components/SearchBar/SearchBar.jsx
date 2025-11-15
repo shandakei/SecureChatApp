@@ -2,14 +2,8 @@ import { useState } from 'react';
 import styles from './SearchBar.module.css';
 import DisplayUsers from '../DisplayUsers/DisplayUsers'
 
-export default function SearchBar({ placeholder = "",  }) {
+export default function SearchBar({ placeholder = "", user }) { // allows a user to search for another user
     const [search, setSearch] = useState('');
-
-
-    function SearchHandler(e) {
-        e.preventDefault();
-        setSearch(e.target.value)
-    };
 
     return (
         <>
@@ -22,7 +16,7 @@ export default function SearchBar({ placeholder = "",  }) {
                         />
             <button>Find a Friend</button>
             </section>
-            <DisplayUsers search={search}/>
+            <DisplayUsers search={search} user={user}/> 
         </>
     );
 }

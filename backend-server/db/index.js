@@ -1,3 +1,6 @@
+// database connection
+// grabbed from a .env to keep variables safe
+
 require('dotenv').config()
 const pg = require('pg')
 const pool = new pg.Pool({

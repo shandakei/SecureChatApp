@@ -1,0 +1,100 @@
+import { useState, useEffect } from "react";
+import { getSocket, disconnectSocket } from "../../utils/socket";
+import { useLocation } from "react-router-dom";
+import Nav from "../Nav/Nav";
+import Footer from "../Footer/Footer";
+
+export default function ChatPage() {
+    const [socket, setSocket] = useState(null);
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [joinedRoom, setJoinedRoom] = useState(null); // State to store the room the user has joined
+
+    // grabs variables from the target when a user clicks "chat" on displayUsers
+    const location = useLocation();
+    const user = location.state?.user;
+    const chatUser = location.state?.targetUser;
+
+    // creates a unique room name by combining the current user and who they want to chat with.
+    // soring this is important, so that either user can join the same room. (i.e instead of akk_leo, leo_akk) both users would join (akk_leo))
+    const roomName = chatUser && user
+        ? [user.username, chatUser.username].sort().join("_")
+        : null;
+        
+    // useeffect that runs when user/chatuser/roomname changes; to connect/disconnect to socket.io/
+    useEffect(() => {
+
+        // if both are not defined, do not set up socket io.
+        if (!chatUser || !user) return;
+
+        // gets or create a single socket connection
+        const newSocket = getSocket();
+        setSocket(newSocket);
+
+        // join/create room
+        newSocket.emit("createRoom", roomName);
+
+        // set up listeners
+        newSocket.on("roomJoined", (room) => {
+            setJoinedRoom(room);
+            setMessages([]);
+        });
+
+        // listens for incoming messages from the server
+        newSocket.on("receiveMessage", (data) => {
+            setMessages(prev => [...prev, data]);
+        });
+
+        // cleans and removes listeners and disconnects socket
+        return () => {
+            newSocket.off("roomJoined");
+            newSocket.off("receiveMessage");
+            disconnectSocket();
+        };
+    }, [user, chatUser, roomName]); 
+
+
+    // function to send a message. error handler if key variables are not defined. clears text box after sending 
+    function sendMessage() {
+        if (!message.trim() || !socket || !roomName) return;
+
+        socket.emit("sendMessage", {
+            roomName,
+            message,
+            user: user.username
+        });
+
+        setMessage("");
+    };
+
+    return (
+        <div>
+            <Nav />
+            <h1>Chat with {chatUser?.username}</h1>
+
+            <div>
+                <div>
+                    {messages.length === 0 ? (
+                        <p>No messages yet...</p>
+                    ) : (
+                        messages.map((m, i) => (
+                            <p key={i}>
+                                <b>{m.user}:</b> {m.message}
+                            </p>
+                        ))
+                    )}
+                </div>
+
+                <input
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Type a message"
+                    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                />
+                <button onClick={sendMessage}>Send</button>
+            </div>
+
+            <Footer />
+        </div>
+    );
+}

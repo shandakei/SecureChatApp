@@ -11,7 +11,7 @@ export default function Homepage() {
     return (
     <div className={styles.root} >
         <Nav />
-        <SearchBar placeholder="Search for someone" id="nav-search" />
+        <SearchBar placeholder="Search for someone" id="nav-search" user={user} />
         <Footer />
     </div>
     )

@@ -1,5 +1,6 @@
 const db = require('../db')
 
+// function to create a user
 function createUser(username, hash) {
     let sql = `
         INSERT INTO SCA_users 
@@ -11,6 +12,7 @@ function createUser(username, hash) {
     .then(res=>res.rows)
 }
 
+// function to get all users
 function getAllUsers() {
     let sql = `
         SELECT username FROM SCA_users;
@@ -19,6 +21,7 @@ function getAllUsers() {
     .then(res=>res.rows)
 }
 
+// function for deleting a user
 function deleteUser(id) {
         let sql = `
         DELETE FROM SCA_users WHERE id = $1;
@@ -27,6 +30,7 @@ function deleteUser(id) {
         .then(res=>res.rows)
 }
 
+// function for finding a user by their username
 function findByUsername(username) {
     let sql = `
     SELECT * FROM SCA_users WHERE username = $1;

@@ -22,6 +22,7 @@
     "path": "^0.12.7",
     "pg": "^8.12.0",
     "react-router-dom": "^6.24.0",
+    "socket.io": "^4.8.1",
     "static-path": "^0.0.4"
   },
   "devDependencies": {
