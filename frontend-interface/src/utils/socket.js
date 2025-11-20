@@ -1,4 +1,5 @@
-export const SOCKET_SERVER_URL = "http://localhost:8000"; // allows connection from frontend to backend socket server
+// export const SOCKET_SERVER_URL = "http://localhost:8000"; // allows connection from frontend to backend socket server (testing)
+export const SOCKET_SERVER_URL = "https://securechatapp-oiky.onrender.com/"; // allows connection from frontend to backend socket server (deployment)
 
 import { io } from "socket.io-client"; // imports io
 

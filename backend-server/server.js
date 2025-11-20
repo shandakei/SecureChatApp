@@ -8,16 +8,6 @@ const port = 8000;
 // sets up variable for socket.io to connect to the app
 const server = http.createServer(app);
 
-// on deployed version, having issues with cors blocking links
-const cors = require('cors'); 
-app.use(cors({
-  // origin: 'http://localhost:8000', // for testing
-  origin: "https://securechatapp-oiky.onrender.com/", // for deployment
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-
 // routers and middleware
 const errorHandler = require('./middlewares/error_hander'); // custom error handler
 const expressListRoutes = require('express-list-routes'); // sets up express
